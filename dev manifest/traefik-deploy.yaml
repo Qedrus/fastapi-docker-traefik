@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      containers:
+      - name: traefik
+        image: traefik:v2.9.6
+        ports:
+        - containerPort: 80
+        - containerPort: 8080
+        args:
+        - "--api.insecure=true"
+        - "--providers.kubernetesIngress"
+        - "--entrypoints.web.address=:80"
+        volumeMounts:
+        - name: docker-socket
+          mountPath: "/var/run/docker.sock"
+          readOnly: true
+      volumes:
+      - name: docker-socket
+        hostPath:
+          path: "/var/run/docker.sock"
+          type: Socket
