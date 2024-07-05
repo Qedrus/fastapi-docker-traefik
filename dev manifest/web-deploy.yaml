@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: "icedrus/web-dev"  # Imagen especificada
+        image: "icedrus/web-dev:2"  # Imagen especificada
         ports:
         - containerPort: 8000
         env:
