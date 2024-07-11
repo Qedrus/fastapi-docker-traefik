@@ -12,5 +12,8 @@ ENV PYTHONUNBUFFERED 1
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# copy project
+# copy project files into the container
 COPY . .
+
+# wait for the database to be ready, then start uvicorn
+CMD ["bash", "-c", "while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0"]

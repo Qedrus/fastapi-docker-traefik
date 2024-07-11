@@ -16,8 +16,10 @@ spec:
       - name: traefik
         image: traefik:v2.9.6
         ports:
-        - containerPort: 80
-        - containerPort: 8080
+            - name: web
+              containerPort: 80
+            - name: dashboard
+              containerPort: 8080
         args:
         - "--api.insecure=true"
         - "--providers.kubernetesIngress"

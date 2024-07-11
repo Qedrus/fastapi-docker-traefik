@@ -4,9 +4,8 @@ metadata:
   name: web-service
 spec:
   selector:
-    app: web
+    app: fastapi-traefik
   ports:
-    - name: http-port
-      protocol: TCP
+    - protocol: TCP
       port: 8000
       targetPort: 8000
